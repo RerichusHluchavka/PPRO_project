@@ -3,6 +3,8 @@ package com.kino.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "screening")
 public class Screening {
@@ -10,12 +12,13 @@ public class Screening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
-    private long film_id;
-    private String day;
-    private String time;
+    private LocalDateTime screeningDateTime;
+
+    @ManyToOne()
+    @JoinColumn(name = "film_id")
+    private Film film;
 
     public Screening() {
-
     }
 
     public long getId() {
@@ -26,30 +29,19 @@ public class Screening {
         this.id = id;
     }
 
-    public long getFilm_id() {
-        return this.film_id;
+    public @NotNull LocalDateTime getScreeningDateTime() {
+        return screeningDateTime;
     }
 
-    public void setFilm_id(long film_id) {
-        this.film_id = film_id;
+    public void setScreeningDateTime(@NotNull LocalDateTime screeningDateTime) {
+        this.screeningDateTime = screeningDateTime;
     }
 
-    public String getDay() {
-        return this.day;
+    public Film getFilm() {
+        return film;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setFilm(Film film) {
+        this.film = film;
     }
-
-    public String getTime() {
-        return this.time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-    
-    
-
 }

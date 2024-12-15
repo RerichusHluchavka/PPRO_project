@@ -4,6 +4,8 @@ package com.kino.demo.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -16,7 +18,10 @@ public class User {
     @NotEmpty
     @NotBlank
     private String password;
-    private int admin = 0;
+    private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> tickets;
 
     public User() {
     }
@@ -45,13 +50,11 @@ public class User {
         this.password = password;
     }
 
-    public int getAdmin() {
-        return this.admin;
+    public String getRole() {
+        return role;
     }
 
-    public void setAdmin(int admin) {
-        this.admin = admin;
+    public void setRole(String role) {
+        this.role = role;
     }
-
-    
 }
