@@ -14,10 +14,11 @@ public class Film {
     @NotBlank
     private String name;
 
+
     private String description;
     @Min(value = 1)
     @Max(value = 600)
-    private int lenght;
+    private int length;
 
     public Film() {
     }
@@ -46,12 +47,12 @@ public class Film {
         this.description = description;
     }
 
-    public int getLenght() {
-        return this.lenght;
+    public int getLength() {
+        return this.length;
     }
 
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
+    public void setLength(int length) {
+        this.length = length;
     }
 
 }
