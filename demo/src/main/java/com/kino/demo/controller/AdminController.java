@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -48,6 +49,36 @@ public class AdminController {
             return "admin/createFilm";
         }
         filmService.save(film);
-        return "redirect:/admin/administration";
+        return "redirect:/admin/filmList";
     }
+
+    @PostMapping("/editFilm/{id}")
+    public String editPostFilm(@PathVariable int id, Film film, BindingResult bindingResult) {
+        System.out.println(id);
+        if(bindingResult.hasErrors()) {
+            return "admin/editFilm/" + id;
+        }
+        if(filmRepository.findByName(film.getName()) != null) {
+            if(filmRepository.findByName(film.getName()).getId() != id)
+            return "admin/editFilm" + id;
+        }
+        filmService.updateFilm(film);
+        return "redirect:/admin/filmList";
+    }
+
+    @GetMapping("/editFilm/{id}")
+    public String editFilm(@PathVariable int id, Model model) {
+        model.addAttribute("film", filmService.getFilmById(id));
+        return "admin/editFilm";
+    }
+
+
+
+    @GetMapping("/filmDelete/{id}")
+    public String deleteFilm(@PathVariable long id){
+        filmService.deleteFilmById(id);
+        System.out.println("Film deleted");
+        return "redirect:/admin/filmList";
+    }
+
 }

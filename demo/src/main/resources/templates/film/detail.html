@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+</head>
+<body>
+<h1>Film Detail</h1>
+<div>
+    <h2 th:text="${film.name}"></h2>
+    <h3 th:text="'Length: ' + ${film.Length} + 'min'"></h3>
+    <span>Description:</span>
+    <p th:text="${film.description}"></p>
+</div>
+</body>
+</html>

@@ -7,20 +7,25 @@
 
 </head>
 <body>
+<button onclick="window.location.href='/admin/administration'">Admin page</button>
+
 <h1>Create Film</h1>
 <div>
     <form th:action="@{/admin/createFilm}" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required/>
-        <br/>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required/>
+        </div>
 
-        <label for="length">Length (minutes):</label>
-        <input type="number" id="length" name="length" required/>
-        <br/>
+        <div>
+            <label for="length">Length (minutes):</label>
+            <input type="number" id="length" name="length" required/>
+        </div>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" cols="50"></textarea>
-        <br/>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea>
+        </div>
 
         <button type="submit">Create Film</button>
     </form>

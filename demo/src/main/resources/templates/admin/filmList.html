@@ -6,17 +6,20 @@
     <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
 </head>
 <body>
+<button onclick="window.location.href='/admin/administration'">Admin page</button>
+
 <a th:href="@{'/admin/createFilm'}">New Film</a>
 
 <ul>
     <li th:each="film : ${films}">
-<!--        <a th:href="@{'/filmDetail/' + ${film.id}}"><span th:text="${film.name}"></span></a>-->
         <div>
             <span th:text="${film.name}"></span>
-            <a th:href="@{'/filmDelete/' + ${film.id}}">Delete Car</a>
+            <a th:href="@{'/admin/filmDelete/' + ${film.id}}">Delete Film</a>
+            <a th:href="@{'/admin/editFilm/' + ${film.id}}">Edit Film</a>
         </div>
     </li>
 </ul>
+
 
 </body>
 </html>

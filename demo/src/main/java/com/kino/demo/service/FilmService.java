@@ -12,4 +12,5 @@ public interface FilmService {
     List<Film> getAllFilms();
     void save(Film film);
     Film deleteFilmById(long id);
+    void updateFilm(Film film);
 }

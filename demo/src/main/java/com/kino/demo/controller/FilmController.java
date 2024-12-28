@@ -26,16 +26,11 @@ public class FilmController {
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable long id){
         Film film = filmService.getFilmById(id);
-        if(film != null){
+        if(film != null) {
             model.addAttribute("film", film);
-            return "film_detail";
+            return "film/detail";
         }
         return "redirect:/";
     }
-    @GetMapping("/deleteFilm/{id}")
-    public String deleteFilm(@PathVariable long id){
-        filmService.deleteFilmById(id);
-        System.out.println("Film deleted");
-        return "redirect:/admin/filmList";
-    }
+
 }

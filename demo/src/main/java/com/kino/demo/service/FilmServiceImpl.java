@@ -47,4 +47,12 @@ public class FilmServiceImpl implements FilmService {
         }
         return null;
     }
+
+    @Override
+    public void updateFilm(Film film) {
+        Optional<Film> filmDB = filmRepository.findById(film.getId());
+        if(filmDB.isPresent()){
+            filmRepository.save(film);
+        }
+    }
 }

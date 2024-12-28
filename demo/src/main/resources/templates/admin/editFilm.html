@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+
+</head>
+<body>
+<button onclick="window.location.href='/admin/administration'">Admin page</button>
+
+<h1>Edit Film</h1>
+<div>
+    <form th:action="@{/admin/editFilm/{id}(id=${film.id})}" method="post">
+        <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${film.name}" required/>
+        </div>
+
+        <div>
+        <label for="length">Length (minutes):</label>
+        <input type="number" id="length" name="length" th:value="${film.length}" required/>
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" th:text="${film.description}"></textarea>
+        </div>
+        <br/>
+
+        <button type="submit">Edit Film</button>
+    </form>
+
+</div>
+</body>
+</html>
