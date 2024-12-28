@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
 </head>
 <body>
 <a th:href="@{'/admin/createFilm'}">New Film</a>
 
 <ul>
     <li th:each="film : ${films}">
-        <span th:text="${film.name}"></span>
+<!--        <a th:href="@{'/filmDetail/' + ${film.id}}"><span th:text="${film.name}"></span></a>-->
+        <div>
+            <span th:text="${film.name}"></span>
+            <a th:href="@{'/filmDelete/' + ${film.id}}">Delete Car</a>
+        </div>
     </li>
 </ul>
 

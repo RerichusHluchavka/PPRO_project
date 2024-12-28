@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,7 +33,8 @@ public class AdminController {
         return "admin/createFilm"; // Renders the "admin/createFilm" view
     }
     @GetMapping("/filmList")
-    public String filmList() {
+    public String filmList(Model model) {
+        model.addAttribute("films", filmService.getAllFilms());
         return "admin/filmList"; // Renders the "admin/createFilm" view
     }
 

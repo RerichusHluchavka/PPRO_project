@@ -1,10 +1,12 @@
 package com.kino.demo.service;
 
 import com.kino.demo.model.Film;
-import com.kino.demo.model.User;
 import com.kino.demo.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -28,5 +30,21 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void save(Film film) {
         filmRepository.save(film);
+    }
+
+    @Override
+    public List<Film> getAllFilms() {
+        return filmRepository.findAll();
+    }
+
+    @Override
+    public Film deleteFilmById(long id){
+        Optional<Film> filmDB = filmRepository.findById(id);
+        if(filmDB.isPresent()){
+            Film film = filmDB.get();
+            filmRepository.delete(film);
+            return film;
+        }
+        return null;
     }
 }

@@ -30,6 +30,12 @@ public class FilmController {
             model.addAttribute("film", film);
             return "film_detail";
         }
-        return "redirect:/film/";
+        return "redirect:/";
+    }
+    @GetMapping("/deleteFilm/{id}")
+    public String deleteFilm(@PathVariable long id){
+        filmService.deleteFilmById(id);
+        System.out.println("Film deleted");
+        return "redirect:/admin/filmList";
     }
 }
