@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+
+</head>
+<body>
+<button onclick="window.location.href='/admin/administration'">Admin page</button>
+
+<h1>Edit Screening</h1>
+<div th:if="${errorMessage}" style="color: lightpink;">
+  <p th:text="${errorMessage}"></p>
+</div>
+<div>
+  <form th:action="@{/admin/editScreening/{id}(id=${screening.id})}" method="post">
+    <div>
+      <label for="filmId">Select a Film:</label>
+      <select id="filmId" name="filmId">
+        <option th:each="film : ${films}"
+                th:value="${film.id}"
+                th:text="${film.name}"
+                th:selected="${film.id == screening.film.id}">
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="screeningDateTime">Screening Date and Time:</label>
+      <input type="datetime-local" id="screeningDateTime" name="screeningDateTime" th:value="${screening.screeningDateTime}" required />
+    </div>
+    <button type="submit">Edit Screening</button>
+  </form>
+</div>
+</body>
+</html>

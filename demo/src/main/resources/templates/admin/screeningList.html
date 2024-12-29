@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+</head>
+<body>
+<button onclick="window.location.href='/admin/administration'">Admin page</button>
+
+<a th:href="@{'/admin/createScreening'}">New Screening</a>
+
+<ul>
+    <li th:each="screening : ${screenings}">
+        <div>
+            <span th:text="${screening.getFilm().name} + ' ' + ${screening.screeningDateTime}"></span>
+            <a th:href="@{'/admin/screeningDelete/' + ${screening.id}}">Delete Screening</a>
+            <a th:href="@{'/admin/editScreening/' + ${screening.id}}">Edit Screening</a>
+        </div>
+    </li>
+</ul>
+
+
+</body>
+</html>
