@@ -190,6 +190,7 @@ public class AdminController {
 
     @GetMapping("/filmDelete/{id}")
     public String deleteFilm(@PathVariable long id){
+        screeningService.deleteScreeningsByFilmId(id);
         filmService.deleteFilmById(id);
         return "redirect:/admin/filmList";
     }

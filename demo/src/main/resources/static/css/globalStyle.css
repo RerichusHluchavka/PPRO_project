@@ -16,3 +16,54 @@ form div{
     width: min-content;
     padding-bottom: 10px;
 }
+
+.navbar{
+    position: relative;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    border-bottom: 1px solid #d3d3d3;
+}
+.navbar ul{
+    display:flex;
+    flex-direction: row;
+    list-style-type: none;
+    align-items: center;
+}
+
+.navbar ul li{
+    text-decoration: none;
+}
+
+.navbar ul li a:hover{
+    background-color: #d3d3d3;
+    color: #030303;
+    cursor: pointer;
+}
+
+.navbar ul li a{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+.navbar form{
+    padding:0;
+}
+
+.navbar button{
+    text-decoration: none;
+    border: none;
+    background-color: #030303;
+    color: white;
+    font-family: "Times New Roman";
+    font-size: 16px;
+    padding:10px;
+}
+
+.navbar ul li button:hover{
+    background-color: #d3d3d3;
+    color: #030303;
+    cursor: pointer;
+}

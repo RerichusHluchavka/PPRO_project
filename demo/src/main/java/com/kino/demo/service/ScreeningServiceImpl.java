@@ -2,6 +2,7 @@ package com.kino.demo.service;
 
 import com.kino.demo.model.Screening;
 import com.kino.demo.repository.ScreeningRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,5 +49,11 @@ public class ScreeningServiceImpl implements ScreeningService {
         if(screeningDB.isPresent()){
             screeningRepository.save(screening);
         }
+    }
+
+    @Transactional
+    @Override
+    public void deleteScreeningsByFilmId(long filmId) {
+        screeningRepository.deleteScreeningsByFilm_Id(filmId);
     }
 }

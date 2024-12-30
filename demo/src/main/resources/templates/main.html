@@ -7,6 +7,7 @@
 
 </head>
 <body>
+<div th:insert="components/navbar :: body"></div>
 
 <p>Welcome, <span th:text="${#authentication.name}">User</span>!</p>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -21,6 +22,8 @@
 <div>
     <button onclick="window.location.href='/register'">Register</button>
     <button onclick="window.location.href='/login'">Login</button>
+    <button onclick="window.location.href='/film/filmList'">Film list</button>
+
 </div>
 
 </body>

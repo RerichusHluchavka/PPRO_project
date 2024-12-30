@@ -12,4 +12,5 @@ public interface ScreeningService {
     void createScreening(Screening screening);
     Screening deleteScreeningById(long id);
     void updateScreening(Screening screening);
+    void deleteScreeningsByFilmId(long filmId);
 }

@@ -33,4 +33,10 @@ public class FilmController {
         return "redirect:/";
     }
 
+    @GetMapping("/filmList")
+    public String filmList(Model model){
+        model.addAttribute("films", filmService.getAllFilms());
+        return "film/filmList";
+    }
+
 }

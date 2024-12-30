@@ -42,7 +42,7 @@ public class FilmServiceImpl implements FilmService {
         Optional<Film> filmDB = filmRepository.findById(id);
         if(filmDB.isPresent()){
             Film film = filmDB.get();
-            filmRepository.delete(film);
+            filmRepository.deleteById(film.getId());
             return film;
         }
         return null;

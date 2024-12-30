@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ScreeningRepository extends JpaRepository<Screening, Long> {
     List<Screening> findScreeningsByScreeningDateTimeBetween(LocalDateTime from, LocalDateTime to);
+    void deleteScreeningsByFilm_Id(Long id);
 }
