@@ -8,5 +8,15 @@
 <body>
 <div th:insert="components/navbar :: body"></div>
 
+<ul>
+  <li th:each="user : ${users}">
+    <div>
+      <span th:text="${user.getUsername()}"></span>
+      <a th:href="@{'/admin/userDelete/' + ${user.id}}">Delete User</a>
+      <a th:href="@{'/admin/editUser/' + ${user.id}}">Edit User</a>
+    </div>
+  </li>
+</ul>
+
 </body>
 </html>

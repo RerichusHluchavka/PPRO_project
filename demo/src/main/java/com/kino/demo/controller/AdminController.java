@@ -2,13 +2,19 @@ package com.kino.demo.controller;
 
 import com.kino.demo.model.Film;
 import com.kino.demo.model.Screening;
+import com.kino.demo.model.Ticket;
+import com.kino.demo.model.User;
 import com.kino.demo.repository.FilmRepository;
 import com.kino.demo.repository.ScreeningRepository;
 import com.kino.demo.repository.TicketRepository;
+import com.kino.demo.repository.UserRepository;
 import com.kino.demo.service.FilmService;
 import com.kino.demo.service.ScreeningService;
 import com.kino.demo.service.TicketService;
+import com.kino.demo.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +31,8 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
+    private UserRepository userRepository;
+    private UserService userService;
     private FilmService filmService;
     private FilmRepository filmRepository;
     private ScreeningService screeningService;
@@ -32,13 +40,15 @@ public class AdminController {
     private TicketService ticketService;
     private TicketRepository ticketRepository;
 
-    public AdminController(FilmService filmService, FilmRepository filmRepository, ScreeningService screeningService, ScreeningRepository screeningRepository, TicketService ticketService, TicketRepository ticketRepository) {
+    public AdminController(FilmService filmService, FilmRepository filmRepository, ScreeningService screeningService, ScreeningRepository screeningRepository, TicketService ticketService, TicketRepository ticketRepository, UserRepository userRepository, UserService userService) {
         this.filmService = filmService;
         this.filmRepository = filmRepository;
         this.screeningService = screeningService;
         this.screeningRepository = screeningRepository;
         this.ticketService = ticketService;
         this.ticketRepository = ticketRepository;
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/administration")
@@ -67,6 +77,18 @@ public class AdminController {
     public String screeningList(Model model) {
         model.addAttribute("screenings", screeningRepository.findAll());
         return "admin/screeningList";
+    }
+
+    @GetMapping("/userList")
+    public String userList(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "admin/userList";
+    }
+
+    @GetMapping("/ticketList")
+    public String ticketList(Model model) {
+        model.addAttribute("tickets", ticketRepository.findAll());
+        return "admin/ticketList";
     }
 
     @PostMapping("/createScreening")
@@ -175,6 +197,39 @@ public class AdminController {
 
     }
 
+    @PostMapping("/editUser/{id}")
+    public String editUser(@PathVariable int id, String username, String password, Model model, RedirectAttributes redirectAttributes, Boolean role, Boolean change) {
+        User user = userService.getUserById(id);
+        user.setUsername(username);
+        if(userRepository.findByUsername(user.getUsername()) != null ) {
+            if(!user.getUsername().equals(userService.findByUsername(user.getUsername()).getUsername())) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Username is already taken");
+                return "redirect:/admin/editUser/" + id;
+            }
+        }
+        if (role != null) {
+            user.setRole("ADMIN");
+        }
+        if(change != null) {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(password);
+            user.setPassword(encryptedPassword);
+        }
+
+        userService.updateUser(user);
+        return "redirect:/admin/userList";
+    }
+
+    @PostMapping("/editTicket/{id}")
+    public String editTicket(@PathVariable int id, @Valid Ticket ticket, long user_id,long screening_id, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "redirect:/admin/editTicket/" + id;
+        }
+        ticket.setUser(userService.getUserById(user_id));
+        ticket.setScreening(screeningService.getScreeningById(screening_id));
+        ticketService.updateTicket(ticket);
+        return "redirect:/admin/ticketList";
+    }
+
     @GetMapping("/editFilm/{id}")
     public String editFilm(@PathVariable int id, Model model) {
         model.addAttribute("film", filmService.getFilmById(id));
@@ -186,6 +241,21 @@ public class AdminController {
         model.addAttribute("screening", screeningService.getScreeningById(id));
         model.addAttribute("films", filmService.getAllFilms());
         return "admin/editScreening";
+    }
+
+    @GetMapping("/editUser/{id}")
+    public String editUser(@PathVariable long id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "admin/editUser";
+    }
+
+    @GetMapping("/editTicket/{id}")
+    public String editTicket(@PathVariable long id, Model model) {
+        model.addAttribute("ticket", ticketService.getTicketById(id));
+        model.addAttribute("screenings", screeningService.getAllScreenings());
+        model.addAttribute("users", userService.getAllUsers());
+
+        return "admin/editTicket";
     }
 
     @GetMapping("/screeningDelete/{id}")
@@ -201,5 +271,20 @@ public class AdminController {
         filmService.deleteFilmById(id);
         return "redirect:/admin/filmList";
     }
+
+    @GetMapping("/userDelete/{id}")
+    public String userDelete(@PathVariable long id){
+        ticketService.deleteTicketsByUserId(id);
+        userService.deleteUserByID(id);
+        return "redirect:/admin/userList";
+    }
+
+    @GetMapping("/ticketDelete/{id}")
+    public String ticketDelete(@PathVariable long id){
+        ticketService.deleteTicketByID(id);
+        return "redirect:/admin/ticketList";
+    }
+
+
 
 }

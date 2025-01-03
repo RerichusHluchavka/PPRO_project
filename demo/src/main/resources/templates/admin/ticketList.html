@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+</head>
+<body>
+<div th:insert="components/navbar :: body"></div>
+<ul>
+  <li th:each="ticket : ${tickets}">
+    <div>
+      <span th:text="${ticket.getUser().getUsername()}"></span>
+      <span th:text="${ticket.getScreening().getFilm().getName()}"></span>
+      <span th:text="${ticket.getScreening().getScreeningDateTime()}"></span>
+      <a th:href="@{'/admin/ticketDelete/' + ${ticket.id}}">Delete Ticket</a>
+      <a th:href="@{'/admin/editTicket/' + ${ticket.id}}">Edit Ticket</a>
+    </div>
+  </li>
+</ul>
+</body>
+</html>

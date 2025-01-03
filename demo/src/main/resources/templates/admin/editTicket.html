@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+
+</head>
+<body>
+<div th:insert="components/navbar :: body"></div>
+
+<h1>Edit Screening</h1>
+<div th:if="${errorMessage}" style="color: lightpink;">
+  <p th:text="${errorMessage}"></p>
+</div>
+
+<div>
+  <form th:action="@{/admin/editTicket/{id}(id=${ticket.id})}" method="post">
+    <div>
+      <label for="screening_id">Select a Screening:</label>
+      <select id="screening_id" name="screening_id" required>
+        <option th:each="screening : ${screenings}"
+                th:value="${screening.getId()}"
+                th:text="${screening.getFilm().getName()} + ' ' + ${screening.getScreeningDateTime()}"
+                th:selected="${screening.id == ticket.getScreening().getId()}">
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="user_id">Select a User:</label>
+      <select id="user_id" name="user_id" required>
+        <option th:each="user : ${users}"
+                th:value="${user.getId()}"
+                th:text="${user.getUsername()}"
+                th:selected="${user.id == ticket.getUser().getId()}">
+        </option>
+      </select>
+    </div>
+
+    <div>
+      <label for="count">Number of reservations:</label>
+      <input type="number" min="1" id="count" name="count" th:value="${ticket.getCount()}" required />
+    </div>
+    <button type="submit">Edit Screening</button>
+  </form>
+</div>
+
+</body>
+</html>

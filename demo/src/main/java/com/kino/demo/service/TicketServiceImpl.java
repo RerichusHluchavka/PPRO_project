@@ -62,4 +62,10 @@ public class TicketServiceImpl implements TicketService {
     public void deleteTicketsByScreeningId(long screeningId) {
         ticketRepository.deleteTicketByScreeningId(screeningId);
     }
+
+    @Transactional
+    @Override
+    public void deleteTicketsByUserId(long userId) {
+        ticketRepository.deleteTicketsByUserId(userId);
+    }
 }

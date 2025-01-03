@@ -8,4 +8,5 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findAllByUserId(Long userId);
     void deleteTicketByScreeningId(Long screeningId);
+    void deleteTicketsByUserId(Long userId);
 }
