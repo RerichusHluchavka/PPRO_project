@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+
+</head>
+<body>
+<div th:insert="components/navbar :: body"></div>
+<h1>Tickets:</h1>
+<div th:each="ticket : ${tickets}">
+  <a th:href="@{'/ticket/detail/' + ${ticket.id}}" th:text="${ticket.getScreening().getFilm().getName()} + ' ' + ${#temporals.format(ticket.getScreening().getScreeningDateTime(),'dd:MM:yyyy HH:mm')}"></a>
+</div>
+
+</body>
+</html>

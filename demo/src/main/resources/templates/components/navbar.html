@@ -10,10 +10,27 @@
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{/film/filmList}">Film List</a></li>
                 <li><a th:href="@{/screening/screenings}">Screenings</a></li>
+                <li><a th:href="@{/ticket/myTickets}">My Tickets</a></li>
                 <li><a th:href="@{/admin/administration}">Administration</a></li>
                 <li><a th:href="@{/admin/screeningList}">Admin Screening List</a></li>
                 <li><a th:href="@{/admin/filmList}">Admin Film List</a></li>
 
+                <li>
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="navbar" sec:authorize="!hasRole('ROLE_ADMIN') && !isAnonymous()">
+        <nav>
+            <ul>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/film/filmList}">Film List</a></li>
+                <li><a th:href="@{/screening/screenings}">Screenings</a></li>
+                <li><a th:href="@{/ticket/myTickets}">My Tickets</a></li>
                 <li>
                     <form action="#" th:action="@{/logout}" method="post">
                         <button type="submit">Logout</button>
@@ -35,16 +52,6 @@
         </nav>
     </div>
 
-    <div class="navbar" sec:authorize="!hasRole('ROLE_ADMIN') && !isAnonymous()">
-        <nav>
-            <ul>
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a th:href="@{/film/filmList}">Film List</a></li>
-                <li><a th:href="@{/screening/screenings}">Screenings</a></li>
-                <li><a th:href="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+
 
 </body>

@@ -15,6 +15,7 @@
     <h3 th:text="'Length: ' + ${screening.film.getLength()} + 'min'"></h3>
     <h3 th:text="'Date: ' + ${#temporals.format(screening.screeningDateTime,'dd:MM:yyyy HH:mm')}"></h3>
     <a th:href="@{'/film/detail/' + ${screening.getFilm().getId()}}">Film Detail</a>
+    <a th:href="@{'/ticket/reservation/' + ${screening.getId()}}">Get Reservation</a>
 </div>
 </body>
 </html>

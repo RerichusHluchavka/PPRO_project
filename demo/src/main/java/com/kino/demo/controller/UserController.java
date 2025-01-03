@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
+    public String registerUser(@Valid User user, BindingResult bindingResult, Model model, Boolean role) {
         if(bindingResult.hasErrors()) {
             model.addAttribute("errorMessage", "Binding Result has errors");
             return "register";
@@ -34,14 +34,13 @@ public class UserController {
             model.addAttribute("errorMessage", "User already exists");
             return "register";
         }
-        if (user.getUsername() != null || !user.getUsername().isEmpty()) {
+        if (role != null) {
             user.setRole("ADMIN");
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
         userService.save(user);
-        System.out.println("User registered:");
-        return "redirect:/";
+        return "redirect:/login";
     }
 
 }

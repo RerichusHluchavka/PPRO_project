@@ -4,8 +4,10 @@ import com.kino.demo.model.Film;
 import com.kino.demo.model.Screening;
 import com.kino.demo.repository.FilmRepository;
 import com.kino.demo.repository.ScreeningRepository;
+import com.kino.demo.repository.TicketRepository;
 import com.kino.demo.service.FilmService;
 import com.kino.demo.service.ScreeningService;
+import com.kino.demo.service.TicketService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,12 +29,16 @@ public class AdminController {
     private FilmRepository filmRepository;
     private ScreeningService screeningService;
     private ScreeningRepository screeningRepository;
+    private TicketService ticketService;
+    private TicketRepository ticketRepository;
 
-    public AdminController(FilmService filmService, FilmRepository filmRepository, ScreeningService screeningService, ScreeningRepository screeningRepository) {
+    public AdminController(FilmService filmService, FilmRepository filmRepository, ScreeningService screeningService, ScreeningRepository screeningRepository, TicketService ticketService, TicketRepository ticketRepository) {
         this.filmService = filmService;
         this.filmRepository = filmRepository;
         this.screeningService = screeningService;
         this.screeningRepository = screeningRepository;
+        this.ticketService = ticketService;
+        this.ticketRepository = ticketRepository;
     }
 
     @GetMapping("/administration")
@@ -183,7 +189,8 @@ public class AdminController {
     }
 
     @GetMapping("/screeningDelete/{id}")
-    public String screeningDelete(@PathVariable int id) {
+    public String screeningDelete(@PathVariable long id) {
+        ticketService.deleteTicketsByScreeningId(id);
         screeningService.deleteScreeningById(id);
         return "redirect:/admin/screeningList";
     }
