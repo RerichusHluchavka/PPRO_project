@@ -6,6 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
 </head>
 <body>
+<div th:insert="components/navbar :: body"></div>
+
 <ul>
     <li th:each="film : ${films}">
         <div>

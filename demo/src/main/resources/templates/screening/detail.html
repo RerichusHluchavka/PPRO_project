@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+
+</head>
+<body>
+<div th:insert="components/navbar :: body"></div>
+
+<h1>Screening Detail</h1>
+<div>
+    <h2 th:text="'Film: '+ ${screening.film.getName()}"></h2>
+    <h3 th:text="'Length: ' + ${screening.film.getLength()} + 'min'"></h3>
+    <h3 th:text="'Date: ' + ${#temporals.format(screening.screeningDateTime,'dd:MM:yyyy HH:mm')}"></h3>
+    <a th:href="@{'/film/detail/' + ${screening.getFilm().getId()}}">Film Detail</a>
+</div>
+</body>
+</html>

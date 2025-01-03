@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
 </head>
 <body>
-<button onclick="window.location.href='/admin/administration'">Admin page</button>
+<div th:insert="components/navbar :: body"></div>
 
 <a th:href="@{'/admin/createFilm'}">New Film</a>
 

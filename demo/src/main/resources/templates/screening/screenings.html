@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/globalStyle.css}">
+</head>
+<body>
+<div th:insert="components/navbar :: body"></div>
+<table>
+<thead>
+  <td>  <a th:href="@{/screening/screenings(date=${startOfWeek.minusDays(7)})}">Previous Week</a> </td>
+  <td th:text="${startOfWeek}"></td>
+  <td>  <a th:href="@{/screening/screenings(date=${startOfWeek.plusDays(7)})}">Next Week</a>  </td>
+</thead>
+  <tbody>
+  <tr th:each="screeningDay : ${screeningsByDate}">
+    <td th:text="${screeningDay.getKey()}"></td>
+    <td th:each="screening : ${screeningDay.getValue()}">
+      <a th:href="@{'/screening/detail/' + ${screening.id}}" th:text="${screening.getFilm().name} + ' ' + ${#temporals.format(screening.screeningDateTime,'HH:mm')}"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

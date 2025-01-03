@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .ignoringRequestMatchers("/logout")  // Ignore CSRF for logout URL
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/css/**","/login", "/logout", "/register", "/", "/main", "/403", "/film/**", "/navbar").permitAll()
+                        .requestMatchers("/css/**","/login", "/logout", "/register", "/", "/main", "/403", "/film/**", "/navbar", "screening/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

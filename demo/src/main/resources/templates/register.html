@@ -6,6 +6,10 @@
 
 </head>
 <body>
+<div th:insert="components/navbar :: body"></div>
+<div th:if="${errorMessage}" style="color: lightpink;">
+    <p th:text="${errorMessage}"></p>
+</div>
 <h2>Register</h2>
 <div th:if="${param.error}">
     Invalid username or password.

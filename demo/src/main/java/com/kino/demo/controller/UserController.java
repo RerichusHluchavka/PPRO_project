@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,11 +25,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user, BindingResult bindingResult) {
+    public String registerUser(@Valid User user, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
+            model.addAttribute("errorMessage", "Binding Result has errors");
             return "register";
         }
         if(userRepository.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("errorMessage", "User already exists");
             return "register";
         }
         if (user.getUsername() != null || !user.getUsername().isEmpty()) {
